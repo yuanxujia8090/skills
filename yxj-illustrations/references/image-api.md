@@ -11,7 +11,7 @@
 
 ## 配置（改配置，不改代码）
 
-优先级：环境变量 > 配置文件 > 内置默认值。配置默认读 `~/.pi/agent/image-gen.json`，可用 `YXJ_IMAGEGEN_CONFIG` 指向别处：
+优先级：环境变量 > 配置文件 > 内置默认值。`baseUrl` **无内置默认值**，未配置时脚本直接报错退出，不连接任何第三方地址。配置默认读 `~/.pi/agent/image-gen.json`，可用 `YXJ_IMAGEGEN_CONFIG` 指向别处：
 
 ```json
 {
@@ -44,7 +44,7 @@ stdout 一行 JSON：`path` / `mode` / `seconds` / `revised_prompt` / `model` / 
 
 ## 已知坑
 
-- **约 30 秒切流**（2026-11-11 实测，`zhient.com` 在 Cloudflare 后）：生成请求 30 秒左右被上游切断（curl 状态 `000` 或 `HTTP 524`），而 `/v1/models` 1.7 秒正常回 401。属服务端，调大 `timeoutMs` 救不回来。
+- **约 30 秒切流**（2026-11-11 实测，某网关在 Cloudflare 后）：生成请求 30 秒左右被上游切断（curl 状态 `000` 或 `HTTP 524`），而 `/v1/models` 1.7 秒正常回 401。属服务端，调大 `timeoutMs` 救不回来。
 - 网关 4xx/5xx 时脚本把前 400 字符响应体打出来；先读报错再决定重试，默认不自动重试。
 - 请求体里不要塞本地路径或文件名；prompt 只写画面。
 - 跨境/代理不稳定时先 `--show-config` 确认地址，再用最小 prompt 试一张，别批量跑。

@@ -12,8 +12,13 @@
 ## 收录 yxj-illustrations（云端生图版）
 
 - 收录范围与 comfyui 版一致：`SKILL.md`、`README.md`、`requirements.txt`、`scripts/`、`references/`、`assets/可用版V1.jpg`；不收录 `*.bak-*`、`__pycache__`、生成结果。
-- 本机安装版在 `hermes-work/grok-team/00-给Aaron/圆点IP/yxj-illustrations`（`~/.pi/agent/skills/` 有软链指向它），仓库版是另一份，**不覆盖**本机版。
+- 本机安装版在本机 `hermes-work` 下（`~/.pi/agent/skills/` 有软链指向它），仓库版是另一份，**不覆盖**本机版。
 - 脚本原先硬编码 `~/.pi/agent/image-gen.json` 与 key 路径；仓库版改为 **环境变量 > 配置文件 > 内置默认值** 三级解析，逐字段回退，新增 `YXJ_IMAGEGEN_CONFIG` 换配置文件路径。未传 key 时仍按原顺序读 `~/.pi/agent/openimage.key` 与 `auth.json`。
 - 配置未提供时仍指向作者环境所用的网关与模型名作为默认值，属可用的兼容网关，不是中立占位；换服务商只需改配置。
 - 新增 `scripts/test_smoke.py`：本地 mock 服务验证配置解析、env 覆盖、`b64_json`/`url` 两种响应、改图上传参考图、缺参报错，不请求真实服务、不计费。离线通过不等于真实出图通过。
 - 派生关系写在两边 SKILL.md：comfyui 版指回本云端版，本版指回 comfyui 版，保持手动触发（`disable-model-invocation: true`）不变。
+
+## 2026-11-17 清理：仓库不写具体接口地址
+
+- 本仓库不记录作者实际使用的接口域名与 key 名；脚本 `baseUrl` 无内置默认值，未配置就报错退出，避免新机器默认打到某个第三方地址。
+- 参考文档里的网关易踩坑（约 30 秒切流）保留现象与判据，不写具体域名。

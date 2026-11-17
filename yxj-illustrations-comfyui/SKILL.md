@@ -58,7 +58,7 @@ ComfyUI 常驻会一直占着模型（本机实测 137GB 统一内存里曾占�
   python3 ~/.agents/skills/yxj-illustrations-comfyui/scripts/free_comfy.py
   ```
 - `free_comfy.py` 只设标记、不关进程。要彻底回收内存，手动退出 ComfyUI Desktop。
-- **两个技能都不会启动或关闭 ComfyUI**：本地版只探测端口，云端版 `yxj-illustrations` 完全不用 ComfyUI（走 zhient.com API）。
+- **两个技能都不会启动或关闭 ComfyUI**：本地版只探测端口，云端版 `yxj-illustrations` 完全不用 ComfyUI（走外部图片接口）。
 - 坑：`/free` 里不要带 `free_memory: true`，也不要额外发「轻任务」去触发卸载 —— 2026-11-07 实测这样会把后端直接搞挂（进程退出、端口不再监听）。
 
 ## 前置检查（每次开工，10 秒）
